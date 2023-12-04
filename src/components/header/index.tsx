@@ -1,17 +1,46 @@
+import { Link } from "react-router-dom"
+import logo from "../../assets/logo.png"
+import { FaUserCircle } from "react-icons/fa"
+
 export function Header() {
+  const signed = false
+  const loadingAuth = false
+
   return (
     <>
-      <header className="h-28 flex items-center justify-between px-16 font-poppins font-bold">
-        <img className="h-28" src="./logo.png" alt="logo" />
-        <div className=" flex items-center gap-2">
-          <button className="text-white border-2 px-7 py-2 rounded hover:bg-white hover:text-black duration-300">
-            Login
-          </button>
-          <button className="text-black bg-white px-7 py-2.5 rounded hover:scale-105 duration-300">
-            Sign Up
-          </button>
-        </div>
-      </header>
+      <div className="flex items-center justify-center px-4">
+        <header className="w-full max-w-7xl h-32 flex items-center justify-between font-poppins font-bold">
+          <Link to="/">
+            <img className="h-32" src={logo} alt="" />
+          </Link>
+          {!loadingAuth && signed && (
+            <div className="flex items-center gap-2">
+              <FaUserCircle size={32} color="#fff" />
+              <Link to="/dashboard" className="text-white">
+                Dashboard
+              </Link>
+            </div>
+          )}
+
+          {!loadingAuth && !signed && (
+            <div className=" flex items-center gap-2">
+              <Link
+                to="/login"
+                className="text-white border-2 px-7 py-2 rounded hover:bg-white hover:text-black duration-300"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="border-2 px-7 py-2 rounded bg-white text-black hover:scale-105 duration-300"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+        </header>
+      </div>
+      <div className="border-2 "></div>
     </>
   )
 }
