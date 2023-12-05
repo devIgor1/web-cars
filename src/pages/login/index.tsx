@@ -67,13 +67,18 @@ export function Login() {
               </div>
             </form>
           </div>
-          <div>
-            <Link
-              className="flex items-center gap-2 text-white underline"
-              to="/"
-            >
-              <FaArrowLeft size={28} />
-              <h2>Back to home</h2>
+          <div className="text-white">
+            <h2 className="text-xl">
+              New user?{" "}
+              <Link className="underline" to="/register">
+                Sign up
+              </Link>{" "}
+              to get started.
+            </h2>
+          </div>
+          <div className="text-white flex items-center justify-center mt-16">
+            <Link to="/" className="underline">
+              Back to home
             </Link>
           </div>
         </div>
