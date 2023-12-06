@@ -9,6 +9,7 @@ Um projeto que simula a mesma finalidade de sites como WebMotors por exemplo.
 
 -> Prática de Mobile First, foi utilizado o TailwindCSS para estilização, prezando sempre a responsividade.
 
+-> Reutilizamento de componentes, como o de Input por exemplo. Com o intuito de ter um código mais limpo e performático.
 
 
 ## Dependencias Necessárias
