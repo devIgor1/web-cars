@@ -1,6 +1,5 @@
 import Container from "../../components/container"
 import logo from "../../assets/logo.png"
-import { FaArrowLeft } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
