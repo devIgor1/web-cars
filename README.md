@@ -1,11 +1,15 @@
 
 # Projeto Web Cars (Em desenvolvimento)
 
-Um projeto que simula a mesma finalidade de sites como WebMotors por exemplo. Desde vendas de carros seminovos ou novos.
+Um projeto que simula a mesma finalidade de sites como WebMotors por exemplo. 
 
- 
+-> Foi utilizado Firebase para autenticação e banco de dados. 
 
+-> Possui uma validação avançada no formulário utilizando o React-hook-form juntamente ao Zod.
 
+-> Prática de Mobile First, foi utilizado o TailwindCSS para estilização, prezando sempre a responsividade.
+
+-> Reutilizamento de componentes, como o de Input por exemplo. Com o intuito de ter um código mais limpo e performático.
 
 
 ## Dependencias Necessárias
