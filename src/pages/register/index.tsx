@@ -1,10 +1,12 @@
 import Container from "../../components/container"
 import logo from "../../assets/logo.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "../../components/input"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { auth } from "../../services/firebaseConnection"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -25,6 +27,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export function Register() {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -33,8 +37,22 @@ export function Register() {
     resolver: zodResolver(schema),
   })
 
-  function handleRegister(data: FormData) {
-    console.log("IT WORKED", data)
+  async function handleRegister(data: FormData) {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(async (user) => {
+        await updateProfile(user.user, {
+          displayName: data.name,
+        })
+
+        navigate("/dashboard", {
+          replace: true,
+        })
+
+        console.log("Registered user successfully")
+      })
+      .catch((err) => {
+        console.log("Failed to register user", err)
+      })
   }
 
   return (
