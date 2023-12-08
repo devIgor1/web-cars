@@ -11,7 +11,8 @@ import {
   updateProfile,
 } from "firebase/auth"
 import { auth } from "../../services/firebaseConnection"
-import { useEffect } from "react"
+import { useEffect, useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -32,6 +33,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export function Register() {
+  const { handleUserInfo } = useContext(AuthContext)
+
   const navigate = useNavigate()
 
   const {
@@ -55,6 +58,12 @@ export function Register() {
       .then(async (user) => {
         await updateProfile(user.user, {
           displayName: data.name,
+        })
+
+        handleUserInfo({
+          email: data.email,
+          name: data.name,
+          uid: user.user.uid,
         })
 
         navigate("/dashboard", {
