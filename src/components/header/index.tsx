@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
 import logo from "../../assets/logo.png"
 import { FaUserCircle } from "react-icons/fa"
+import { useContext } from "react"
+import { AuthContext } from "../../context/AuthContext"
 
 export function Header() {
-  const signed = false
-  const loadingAuth = false
+  const { loadingAuth, signed } = useContext(AuthContext)
 
   return (
     <>
