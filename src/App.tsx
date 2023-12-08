@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         path: "/dashboard/new",
         element: (
           <Private>
-            <New />,
+            <New />
           </Private>
         ),
       },
