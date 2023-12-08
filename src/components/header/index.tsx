@@ -10,14 +10,17 @@ export function Header() {
   return (
     <>
       <div className="flex items-center justify-center px-4">
-        <header className="w-full max-w-7xl h-32 flex items-center justify-between font-poppins font-bold">
+        <header className="w-full max-w-7xl h-32 flex items-center justify-between font-poppins">
           <Link to="/">
             <img className="h-32" src={logo} alt="" />
           </Link>
           {!loadingAuth && signed && (
             <div className="flex items-center gap-2">
-              <FaUserCircle size={32} color="#fff" />
-              <Link to="/dashboard" className="text-white">
+              <Link
+                to="/dashboard"
+                className="text-white flex items-center gap-2"
+              >
+                <FaUserCircle size={32} color="#fff" />
                 Dashboard
               </Link>
             </div>
