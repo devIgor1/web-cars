@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "../../components/input"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { useNavigate } from "react-router-dom"
+import { auth } from "../../services/firebaseConnection"
 
 const schema = z.object({
   email: z
@@ -20,6 +23,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export function Login() {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -29,7 +34,14 @@ export function Login() {
   })
 
   function handleLogin(data: FormData) {
-    console.log("IT WORKED", data)
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then((user) => {
+        console.log("logged in successfully", user)
+        navigate("/dashboard", { replace: true })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
