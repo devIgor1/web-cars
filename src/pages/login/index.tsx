@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "../../components/input"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
 import { auth } from "../../services/firebaseConnection"
+import { useEffect } from "react"
 
 const schema = z.object({
   email: z
@@ -32,6 +33,14 @@ export function Login() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    async function handleLogout() {
+      await signOut(auth)
+    }
+
+    handleLogout()
+  }, [])
 
   function handleLogin(data: FormData) {
     signInWithEmailAndPassword(auth, data.email, data.password)
