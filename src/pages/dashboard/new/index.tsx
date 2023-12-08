@@ -1,7 +1,12 @@
+import Container from "../../../components/container"
+import { DashboardHeader } from "../../../components/panelHeader"
+
 export function New() {
   return (
     <div>
-      <h1>New</h1>
+      <Container>
+        <DashboardHeader />
+      </Container>
     </div>
   )
 }

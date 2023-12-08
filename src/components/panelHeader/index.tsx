@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { signOut } from "firebase/auth"
 import { auth } from "../../services/firebaseConnection"
 import { CgLogOut } from "react-icons/cg"
@@ -8,13 +8,24 @@ export function DashboardHeader() {
     await signOut(auth)
   }
 
+  const location = useLocation()
+
+  const isActive = (pathname: string) => {
+    return location.pathname === pathname ? "underline" : ""
+  }
+
   return (
     <div className="bg-white p-4 rounded-lg flex items-center justify-between font-poppins">
       <div>
-        <Link to="/dashboard" className="mr-4">
+        <Link to="/dashboard" className={`mr-4 ${isActive("/dashboard")}`}>
           Dashboard
         </Link>
-        <Link to="/dashboard/new" className="border-l-2 border-black pl-3">
+        <Link
+          to="/dashboard/new"
+          className={`border-l-2 border-black pl-3 ${isActive(
+            "/dashboard/new"
+          )}`}
+        >
           New
         </Link>
       </div>
