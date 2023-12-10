@@ -5,7 +5,7 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { Input } from "../../../components/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ChangeEvent, useContext } from "react"
+import { ChangeEvent, useContext, useState } from "react"
 import { AuthContext } from "../../../context/AuthContext"
 import { v4 as uuidv4 } from "uuid"
 import { storage } from "../../../services/firebaseConnection"
@@ -15,6 +15,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage"
+import { FiTrash } from "react-icons/fi"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -39,6 +40,13 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
+interface ImageItemProps {
+  uid: string
+  name: string
+  previewUrl: string
+  url: string
+}
+
 export function New() {
   const { user } = useContext(AuthContext)
 
@@ -52,6 +60,8 @@ export function New() {
     mode: "onChange",
   })
 
+  const [carImages, setCarImages] = useState<ImageItemProps[]>([])
+
   async function handleUpload(image: File) {
     if (!user?.uid) {
       return
@@ -64,7 +74,16 @@ export function New() {
     const uploadRef = ref(storage, `images/${currentUid}/${uidImage}`)
 
     uploadBytes(uploadRef, image).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((downloadUrl) => {})
+      getDownloadURL(snapshot.ref).then((downloadUrl) => {
+        const imageItem = {
+          name: uidImage,
+          uid: currentUid,
+          previewUrl: URL.createObjectURL(image),
+          url: downloadUrl,
+        }
+
+        setCarImages((images) => [...images, imageItem])
+      })
     })
   }
 
@@ -103,6 +122,22 @@ export function New() {
             />
           </div>
         </button>
+
+        {carImages.map((item) => (
+          <div
+            key={item.name}
+            className="w-full h-32 flex items-center justify-center relative"
+          >
+            <button className="absolute top-2 left-2 bg-white p-1 rounded">
+              <FiTrash size={21} color="#dc143c" />
+            </button>
+            <img
+              src={item.previewUrl}
+              className="rounded-lg w-full h-32 object-cover"
+              alt="Car image"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="w-full bg-white p-3 rounded-lg flex flex-col sm:flex-row items-center mt-2 font-poppins">
