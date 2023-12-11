@@ -102,7 +102,7 @@ export function Home() {
                     display: loadImages.includes(car.id) ? "block" : "none",
                   }}
                 />
-                <p className="font-bold mt-1 mb-2 px-2">{car.name}</p>
+                <p className="font-bold mt-1 mb-2 px-2 text-xl">{car.name}</p>
 
                 <div className="flex flex-col px-2">
                   <span className="text-zinc-900 text-base mb-6">
