@@ -135,7 +135,11 @@ export function CarDetail() {
             <p className="mb-4">{car?.description}</p>
             <strong>Phone</strong>
             <p className="mb-4">{car?.phone}</p>
-            <a className="bg-green-500 w-full p-3 text-white flex items-center justify-center gap-2 my-6 h-14 text-center md:h-11 text-base md:text-xl rounded-lg cursor-pointer font-bold hover:bg-green-400 duration-300">
+            <a
+              href={`https://api.whatsapp.com/send?phone=${car?.phone}&text=Hello! I came across your ${car?.name} advertisement on the Web Cars website, and I'm quite interested. Could you provide more details or information about it, please?`}
+              target="_blank"
+              className="bg-green-500 w-full p-3 text-white flex items-center justify-center gap-2 my-6 h-14 text-center md:h-11 text-base md:text-xl rounded-lg cursor-pointer font-bold hover:bg-green-400 duration-300"
+            >
               Interested? Reach out to the seller for details and purchase
               options.
               <span>
