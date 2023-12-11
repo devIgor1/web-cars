@@ -2,7 +2,7 @@ import { doc, getDoc } from "firebase/firestore"
 import Container from "../../components/container"
 import { useEffect, useState } from "react"
 import { FaWhatsapp } from "react-icons/fa"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { db } from "../../services/firebaseConnection"
 import { Swiper, SwiperSlide } from "swiper/react"
 
@@ -32,6 +32,7 @@ export function CarDetail() {
   const { id } = useParams()
   const [car, setCar] = useState<CarProps>()
   const [sliderPreview, setSliderPreview] = useState<number>(2)
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function loadCar() {
@@ -42,6 +43,10 @@ export function CarDetail() {
       const docRef = doc(db, "cars", id)
 
       getDoc(docRef).then((snapshot) => {
+        if (!snapshot.data()) {
+          navigate("/")
+        }
+
         setCar({
           id: snapshot.id,
           name: snapshot.data()?.name,
@@ -83,20 +88,22 @@ export function CarDetail() {
   return (
     <Container>
       <div className="rounded- w-full bg-white rounded-lg p-6 my-4 font-poppins">
-        <Swiper
-          slidesPerView={sliderPreview}
-          pagination={{ clickable: true }}
-          navigation
-        >
-          {car?.images.map((image) => (
-            <SwiperSlide key={image.name}>
-              <img
-                src={image.url}
-                className="w-full h-96 object-cover mb-9 rounded-lg"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {car && (
+          <Swiper
+            slidesPerView={sliderPreview}
+            pagination={{ clickable: true }}
+            navigation
+          >
+            {car?.images.map((image) => (
+              <SwiperSlide key={image.name}>
+                <img
+                  src={image.url}
+                  className="w-full h-96 object-cover mb-9 rounded-lg"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
 
         {car && (
           <main>
