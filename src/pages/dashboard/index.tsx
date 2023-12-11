@@ -66,19 +66,20 @@ export function Dashboard() {
   }, [user])
 
   async function handleDeleteCar(car: CarProps) {
+    const itemCar = car
+
     try {
-      const carRef = doc(db, "cars", car.id)
+      const carRef = doc(db, "cars", itemCar.id)
       await deleteDoc(carRef)
 
-      car.images.map(async (image) => {
+      itemCar.images.map(async (image) => {
         const imagePath = `images/${image.uid}/${image.name}`
 
         const imageRef = ref(storage, imagePath)
 
         await deleteObject(imageRef)
+        setCars(cars.filter((car) => car.id !== itemCar.id))
       })
-
-      setCars(cars.filter((car) => car.id !== car.id))
     } catch (error) {
       console.log(error)
     }
