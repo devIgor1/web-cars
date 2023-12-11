@@ -1,8 +1,67 @@
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import Container from "../../components/container"
 import { DashboardHeader } from "../../components/panelHeader"
 import { FiTrash2 } from "react-icons/fi"
+import { useContext, useEffect, useState } from "react"
+import { db } from "../../services/firebaseConnection"
+import { AuthContext } from "../../context/AuthContext"
 
+interface CarProps {
+  id: string
+  name: string
+  year: string
+  km: string
+  uid: string
+  price: string | number
+  city: string
+  images: CarImageProps[]
+}
+
+interface CarImageProps {
+  name: string
+  uid: string
+  url: string
+}
 export function Dashboard() {
+  const [cars, setCars] = useState<CarProps[]>([])
+  const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    function loadCars() {
+      if (!user?.uid) {
+        return
+      }
+      const carsRef = collection(db, "cars")
+
+      const queryRef = query(
+        carsRef,
+        where("uid", "==", user.uid),
+        orderBy("created", "desc")
+      )
+
+      getDocs(queryRef).then((snapshot) => {
+        let listCars = [] as CarProps[]
+
+        snapshot.forEach((doc) => {
+          listCars.push({
+            id: doc.id,
+            city: doc.data().city,
+            images: doc.data().images,
+            name: doc.data().name,
+            km: doc.data().km,
+            price: doc.data().price,
+            uid: doc.data().uid,
+            year: doc.data().year,
+          })
+        })
+
+        setCars(listCars)
+      })
+    }
+
+    loadCars()
+  }, [user])
+
   return (
     <Container>
       <DashboardHeader />
