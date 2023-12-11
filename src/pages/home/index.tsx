@@ -3,6 +3,7 @@ import { FiSearch } from "react-icons/fi"
 import { useState, useEffect } from "react"
 import { collection, query, getDocs, orderBy } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
+import { Link } from "react-router-dom"
 
 interface CarProps {
   id: string
@@ -74,27 +75,29 @@ export function Home() {
 
         <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 bg-white p-5 rounded-lg">
           {cars.map((car) => (
-            <section key={car.id} className="text-black w-full rounded-lg">
-              <img
-                className="w-full max-h-[320px] rounded-lg hover:scale-105 duration-300"
-                src={car.images[1].url}
-                alt="car"
-              />
-              <p className="font-bold mt-1 mb-2 px-2">{car.name}</p>
+            <Link to={`/car/${car.id}`} key={car.id}>
+              <section className="text-black w-full rounded-lg">
+                <img
+                  className="w-full max-h-[320px] rounded-lg hover:scale-105 duration-300"
+                  src={car.images[1].url}
+                  alt="car"
+                />
+                <p className="font-bold mt-1 mb-2 px-2">{car.name}</p>
 
-              <div className="flex flex-col px-2">
-                <span className="text-zinc-900 text-base mb-6">
-                  Year: {car.year} | {car.km}
-                </span>
-                <strong className="text-xl">$ {car.price}</strong>
-              </div>
+                <div className="flex flex-col px-2">
+                  <span className="text-zinc-900 text-base mb-6">
+                    Year: {car.year} | {car.km}km
+                  </span>
+                  <strong className="text-xl">$ {car.price}</strong>
+                </div>
 
-              <div className="w-full h-px bg-black my-2"></div>
+                <div className="w-full h-px bg-black my-2"></div>
 
-              <div className="px-2 pb-2">
-                <span className="text-zinc-900">{car.city}</span>
-              </div>
-            </section>
+                <div className="px-2 pb-2">
+                  <span className="text-zinc-900">{car.city}</span>
+                </div>
+              </section>
+            </Link>
           ))}
         </main>
       </div>
