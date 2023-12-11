@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { collection, query, getDocs, orderBy } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
 import { Link } from "react-router-dom"
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
 
 interface CarProps {
   id: string
@@ -87,7 +88,11 @@ export function Home() {
                   style={{
                     display: loadImages.includes(car.id) ? "none" : "block",
                   }}
-                ></div>
+                >
+                  <span className="flex items-center justify-center h-full">
+                    <AiOutlineLoading3Quarters size={28} />
+                  </span>
+                </div>
                 <img
                   className="w-full max-h-[320px] rounded-lg hover:scale-105 duration-300"
                   src={car.images[1].url}
