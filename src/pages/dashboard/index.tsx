@@ -1,4 +1,11 @@
-import { collection, getDocs, query, where } from "firebase/firestore"
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore"
 import Container from "../../components/container"
 import { DashboardHeader } from "../../components/panelHeader"
 import { FiTrash2 } from "react-icons/fi"
@@ -57,6 +64,16 @@ export function Dashboard() {
     loadCars()
   }, [user])
 
+  async function handleDeleteCar(id: string) {
+    try {
+      const carRef = doc(db, "cars", id)
+      await deleteDoc(carRef)
+      setCars(cars.filter((car) => car.id !== id))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Container>
       <DashboardHeader />
@@ -76,7 +93,10 @@ export function Dashboard() {
               </span>
 
               <strong className="text-xl">$ 123.123</strong>
-              <button className="text-red-500 absolute rounded-full right-2 top-12 hover:scale-110 duration-300">
+              <button
+                className="text-red-500 absolute rounded-full right-2 top-12 hover:scale-110 duration-300"
+                onClick={() => handleDeleteCar(car.id)}
+              >
                 <FiTrash2 size={26} />
               </button>
             </div>
