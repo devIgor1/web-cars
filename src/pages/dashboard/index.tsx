@@ -10,8 +10,9 @@ import Container from "../../components/container"
 import { DashboardHeader } from "../../components/panelHeader"
 import { FiTrash2 } from "react-icons/fi"
 import { useContext, useEffect, useState } from "react"
-import { db } from "../../services/firebaseConnection"
+import { db, storage } from "../../services/firebaseConnection"
 import { AuthContext } from "../../context/AuthContext"
+import { deleteObject, ref } from "firebase/storage"
 
 interface CarProps {
   id: string
@@ -64,11 +65,20 @@ export function Dashboard() {
     loadCars()
   }, [user])
 
-  async function handleDeleteCar(id: string) {
+  async function handleDeleteCar(car: CarProps) {
     try {
-      const carRef = doc(db, "cars", id)
+      const carRef = doc(db, "cars", car.id)
       await deleteDoc(carRef)
-      setCars(cars.filter((car) => car.id !== id))
+
+      car.images.map(async (image) => {
+        const imagePath = `images/${image.uid}/${image.name}`
+
+        const imageRef = ref(storage, imagePath)
+
+        await deleteObject(imageRef)
+      })
+
+      setCars(cars.filter((car) => car.id !== car.id))
     } catch (error) {
       console.log(error)
     }
@@ -81,7 +91,7 @@ export function Dashboard() {
         {cars.map((car) => (
           <section key={car.id} className="w-full bg-white p-5 rounded-lg">
             <img
-              className="w-full rounded-lg mb-2 max-h-[320px]"
+              className="w-full rounded-lg mb-2 h-[290px]"
               src={car.images[0].url}
               alt="car image"
             />
@@ -95,7 +105,7 @@ export function Dashboard() {
               <strong className="text-xl">$ 123.123</strong>
               <button
                 className="text-red-500 absolute rounded-full right-2 top-12 hover:scale-110 duration-300"
-                onClick={() => handleDeleteCar(car.id)}
+                onClick={() => handleDeleteCar(car)}
               >
                 <FiTrash2 size={26} />
               </button>
