@@ -24,6 +24,7 @@ interface CarImageProps {
 
 export function Home() {
   const [cars, setCars] = useState<CarProps[]>([])
+  const [loadImages, setLoadImages] = useState<string[]>([])
 
   useEffect(() => {
     function loadCars() {
@@ -54,6 +55,10 @@ export function Home() {
     loadCars()
   }, [])
 
+  function handleImageLoad(id: string) {
+    setLoadImages((prevImageLoaded) => [...prevImageLoaded, id])
+  }
+
   return (
     <Container>
       <div className="font-poppins">
@@ -77,10 +82,20 @@ export function Home() {
           {cars.map((car) => (
             <Link to={`/car/${car.id}`} key={car.id}>
               <section className="text-black w-full rounded-lg">
+                <div
+                  className="w-full h-72 rounded-lg bg-slate-200"
+                  style={{
+                    display: loadImages.includes(car.id) ? "none" : "block",
+                  }}
+                ></div>
                 <img
                   className="w-full max-h-[320px] rounded-lg hover:scale-105 duration-300"
                   src={car.images[1].url}
                   alt="car"
+                  onLoad={() => handleImageLoad(car.id)}
+                  style={{
+                    display: loadImages.includes(car.id) ? "block" : "none",
+                  }}
                 />
                 <p className="font-bold mt-1 mb-2 px-2">{car.name}</p>
 
