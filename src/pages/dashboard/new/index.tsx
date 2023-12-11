@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ChangeEvent, useContext, useState } from "react"
 import { AuthContext } from "../../../context/AuthContext"
 import { v4 as uuidv4 } from "uuid"
-import { storage } from "../../../services/firebaseConnection"
+import { db, storage } from "../../../services/firebaseConnection"
 import {
   ref,
   uploadBytes,
@@ -16,6 +16,7 @@ import {
   deleteObject,
 } from "firebase/storage"
 import { FiTrash } from "react-icons/fi"
+import { addDoc, collection } from "firebase/firestore"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -101,7 +102,51 @@ export function New() {
   }
 
   function onSubmit(data: FormData) {
-    console.log(data)
+    if (carImages.length === 0) {
+      alert("Please select images for car ")
+    }
+
+    const carListImages = carImages.map((car) => {
+      return {
+        uid: car.uid,
+        name: car.name,
+        url: car.url,
+      }
+    })
+
+    addDoc(collection(db, "cars"), {
+      name: data.name,
+      model: data.model,
+      phone: data.phone,
+      city: data.city,
+      year: data.year,
+      km: data.km,
+      price: data.price,
+      description: data.description,
+      created: new Date(),
+      owner: user?.name,
+      uid: user?.uid,
+      images: carListImages,
+    })
+      .then(() => {
+        reset()
+        setCarImages([])
+        console.log("successfully created car")
+      })
+      .catch((err) => err)
+  }
+
+  async function handleDeleteImage(item: ImageItemProps) {
+    const imagePath = `images/${item.uid}/${item.name}`
+
+    const imageRef = ref(storage, imagePath)
+
+    try {
+      deleteObject(imageRef)
+      setCarImages(carImages.filter((car) => car.url !== item.url))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -109,7 +154,7 @@ export function New() {
       <DashboardHeader />
 
       <div className="w-full bg-white p-3 rounded-lg flex flex-col sm:flex-row items-center gap-2 mt-5">
-        <button className="border-2 w-48 rounded-lg flex items-center justify-center cursor-pointer border-gray-600 h-32">
+        <button className="border-2 w-48 rounded-lg flex items-center justify-center cursor-pointer border-gray-600 h-44">
           <div className="absolute cursor-pointer">
             <MdOutlineFileUpload size={30} />
           </div>
@@ -117,7 +162,7 @@ export function New() {
             <input
               type="file"
               accept="image/*"
-              className=" cursor-pointer bg-black h-32 opacity-0"
+              className=" cursor-pointer bg-black h-44 opacity-0"
               onChange={handleFile}
             />
           </div>
@@ -126,14 +171,17 @@ export function New() {
         {carImages.map((item) => (
           <div
             key={item.name}
-            className="w-full h-32 flex items-center justify-center relative"
+            className="w-full h-44 flex items-center justify-center relative"
           >
-            <button className="absolute top-2 left-2 bg-white p-1 rounded">
+            <button
+              className="absolute top-2 left-2 bg-white p-1 rounded"
+              onClick={() => handleDeleteImage(item)}
+            >
               <FiTrash size={21} color="#dc143c" />
             </button>
             <img
               src={item.previewUrl}
-              className="rounded-lg w-full h-32 object-cover"
+              className="rounded-lg w-full h-44 object-cover"
               alt="Car image"
             />
           </div>
