@@ -100,10 +100,10 @@ export function Dashboard() {
 
             <div className="flex flex-col px-2 relative">
               <span className="text-zinc-900 text-base mb-6">
-                Year: 2023 | 125.263 km
+                Year: {car.year} | {car.km} km
               </span>
 
-              <strong className="text-xl">$ 123.123</strong>
+              <strong className="text-xl">$ {car.price}</strong>
               <button
                 className="text-red-500 absolute rounded-full right-2 top-12 hover:scale-110 duration-300"
                 onClick={() => handleDeleteCar(car)}
@@ -115,7 +115,7 @@ export function Dashboard() {
             <div className="w-full h-px bg-black my-2"></div>
 
             <div className="px-2 pb-2">
-              <span className="text-zinc-900">New York</span>
+              <span className="text-zinc-900">{car.city}</span>
             </div>
           </section>
         ))}
