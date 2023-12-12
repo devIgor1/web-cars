@@ -84,7 +84,9 @@ export function Home() {
         <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 bg-white p-5 rounded-lg">
           {cars
             .filter((car) => {
-              return search === "" ? car : car.name.includes(search)
+              return search.toLowerCase() === ""
+                ? car
+                : car.name.toLowerCase().includes(search)
             })
             .map((car) => (
               <Link to={`/car/${car.id}`} key={car.id}>
