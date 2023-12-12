@@ -104,7 +104,7 @@ export function New() {
 
   function onSubmit(data: FormData) {
     if (carImages.length === 0) {
-      alert("Please select images for car ")
+      toast.error("Please select images for car ")
       return
     }
 
