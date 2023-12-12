@@ -18,6 +18,7 @@ import {
 import { FiTrash } from "react-icons/fi"
 import { addDoc, collection } from "firebase/firestore"
 import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -51,6 +52,7 @@ interface ImageItemProps {
 
 export function New() {
   const { user } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const {
     register,
@@ -134,6 +136,7 @@ export function New() {
         reset()
         setCarImages([])
         toast.success("Car registered successfully")
+        navigate("/dashboard", { replace: true })
       })
       .catch((err) => err)
   }
