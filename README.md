@@ -30,7 +30,10 @@ Para fazer o uso desse projeto corretamente rode:
  - [Typescript](https://www.typescriptlang.org/)
  - [Firebase](https://firebase.google.com/)
  
- ![image](https://github.com/devIgor1/web-cars/assets/88665118/b944f95f-d9b2-4fff-afd0-cd3f1c3f314c)
+![image](https://github.com/devIgor1/web-cars/assets/88665118/aad40ab2-ca7e-460d-b08d-38d4fa1762d3)
+![image](https://github.com/devIgor1/web-cars/assets/88665118/b1c75b61-84fd-4c50-8f62-064b50692283)
+![image](https://github.com/devIgor1/web-cars/assets/88665118/b513813e-d5d8-477a-9309-1057ca882187)
+
 
 
 
