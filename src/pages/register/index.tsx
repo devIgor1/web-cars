@@ -65,12 +65,11 @@ export function Register() {
           name: data.name,
           uid: user.user.uid,
         })
-
         navigate("/dashboard", {
           replace: true,
         })
 
-        console.log("Registered user successfully")
+        console.log("User Registered successfully")
       })
       .catch((err) => {
         console.log("Failed to register user", err)

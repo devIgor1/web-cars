@@ -104,6 +104,7 @@ export function New() {
   function onSubmit(data: FormData) {
     if (carImages.length === 0) {
       alert("Please select images for car ")
+      return
     }
 
     const carListImages = carImages.map((car) => {
@@ -131,7 +132,7 @@ export function New() {
       .then(() => {
         reset()
         setCarImages([])
-        console.log("successfully created car")
+        toast.success("Car registered successfully")
       })
       .catch((err) => err)
   }
