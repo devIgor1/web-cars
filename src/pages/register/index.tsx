@@ -13,6 +13,7 @@ import {
 import { auth } from "../../services/firebaseConnection"
 import { useEffect, useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
+import toast from "react-hot-toast"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -65,11 +66,10 @@ export function Register() {
           name: data.name,
           uid: user.user.uid,
         })
+        toast.success("User registered successfully")
         navigate("/dashboard", {
           replace: true,
         })
-
-        console.log("User Registered successfully")
       })
       .catch((err) => {
         console.log("Failed to register user", err)
