@@ -17,6 +17,7 @@ import {
 } from "firebase/storage"
 import { FiTrash } from "react-icons/fi"
 import { addDoc, collection } from "firebase/firestore"
+import toast from "react-hot-toast"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
