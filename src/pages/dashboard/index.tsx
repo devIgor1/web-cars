@@ -13,6 +13,7 @@ import { useContext, useEffect, useState } from "react"
 import { db, storage } from "../../services/firebaseConnection"
 import { AuthContext } from "../../context/AuthContext"
 import { deleteObject, ref } from "firebase/storage"
+import toast from "react-hot-toast"
 
 interface CarProps {
   id: string
@@ -79,6 +80,7 @@ export function Dashboard() {
 
         await deleteObject(imageRef)
         setCars(cars.filter((car) => car.id !== itemCar.id))
+        toast.success("Successfully deleted car")
       })
     } catch (error) {
       console.log(error)
