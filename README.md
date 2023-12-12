@@ -11,7 +11,7 @@ Um projeto que simula a mesma finalidade de sites como WebMotors por exemplo.
 
 -> Reutilizamento de componentes, como o de Input por exemplo. Com o intuito de ter um código mais limpo e performático.
 
--> Foi utilizada a inteligencia artificial do Bing para gerar a logo.
+-> Foi utilizada a inteligência artificial do Bing para gerar a logo.
 
 ## Dependencias Necessárias
 
