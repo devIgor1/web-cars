@@ -9,6 +9,7 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
 import { auth } from "../../services/firebaseConnection"
 import { useEffect } from "react"
+import toast from "react-hot-toast"
 
 const schema = z.object({
   email: z
@@ -46,6 +47,7 @@ export function Login() {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((user) => {
         console.log("logged in successfully", user)
+        toast.success("User logged in successfull")
         navigate("/dashboard", { replace: true })
       })
       .catch((err) => {
