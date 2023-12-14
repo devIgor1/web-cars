@@ -31,6 +31,7 @@ Para fazer o uso desse projeto corretamente rode:
  - [Typescript](https://www.typescriptlang.org/)
  - [Firebase](https://firebase.google.com/)
  - [Swiper](https://swiperjs.com/react#effects)
+ - [React-Hot-Toast](https://react-hot-toast.com/)
  
 ![image](https://github.com/devIgor1/web-cars/assets/88665118/aad40ab2-ca7e-460d-b08d-38d4fa1762d3)
 ![image](https://github.com/devIgor1/web-cars/assets/88665118/b1c75b61-84fd-4c50-8f62-064b50692283)
