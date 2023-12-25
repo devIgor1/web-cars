@@ -8,6 +8,7 @@ import { CarDetail } from "./pages/car"
 
 import { Layout } from "./components/layout"
 import { Private } from "./routes/Private"
+import { EditCar } from "./pages/dashboard/edit"
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <New />
+          </Private>
+        ),
+      },
+      {
+        path: "/dashboard/edit/:id",
+        element: (
+          <Private>
+            <EditCar />
           </Private>
         ),
       },

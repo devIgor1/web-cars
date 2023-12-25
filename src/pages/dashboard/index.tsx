@@ -9,6 +9,7 @@ import {
 import Container from "../../components/container"
 import { DashboardHeader } from "../../components/panelHeader"
 import { FiTrash2 } from "react-icons/fi"
+import { FaEdit } from "react-icons/fa"
 import { useContext, useEffect, useState } from "react"
 import { db, storage } from "../../services/firebaseConnection"
 import { AuthContext } from "../../context/AuthContext"
@@ -125,6 +126,11 @@ export function Dashboard() {
                 >
                   <FiTrash2 size={26} />
                 </button>
+                <Link to={`/dashboard/edit/${car.id}`}>
+                  <button className="text-zinc-900 absolute rounded-full right-10 top-12 hover:scale-110 duration-300">
+                    <FaEdit size={26} />
+                  </button>
+                </Link>
               </div>
 
               <div className="w-full h-px bg-black my-2"></div>
