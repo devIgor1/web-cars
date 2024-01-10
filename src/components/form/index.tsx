@@ -137,7 +137,7 @@ export function Form() {
         toast.success("Car registered successfully")
         navigate("/dashboard", { replace: true })
       })
-      .catch((err) => err)
+      .catch((err) => console.log(err))
   }
 
   async function handleDeleteImage(item: ImageItemProps) {
