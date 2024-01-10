@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom"
 import { signOut } from "firebase/auth"
 import { auth } from "../../services/firebaseConnection"
 import { CgLogOut } from "react-icons/cg"
-import Container from "../container"
 
 export function DashboardHeader() {
   async function handleLogout() {

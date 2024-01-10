@@ -1,5 +1,3 @@
-import Container from "../../components/container"
-import { DashboardHeader } from "../../components/panelHeader"
 import { MdOutlineFileUpload } from "react-icons/md"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
