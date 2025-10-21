@@ -1,10 +1,12 @@
 import { createBrowserRouter } from "react-router-dom"
-import { Home } from "./pages/home"
-import { Login } from "./pages/login"
-import { Register } from "./pages/register"
+import { Home } from "./pages/Home"
+import { Login } from "./pages/Login"
+import { Register } from "./pages/Register"
 import { Dashboard } from "./pages/dashboard"
 import { New } from "./pages/dashboard/new"
-import { CarDetail } from "./pages/car"
+import { CarDetails } from "./pages/CarDetails"
+import { About } from "./pages/about"
+import { FAQ } from "./pages/faq"
 
 import { Layout } from "./components/layout"
 import { Private } from "./routes/Private"
@@ -19,8 +21,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/car/:id",
-        element: <CarDetail />,
+        path: "/cars/:id",
+        element: <CarDetails />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
       },
       {
         path: "/dashboard",
