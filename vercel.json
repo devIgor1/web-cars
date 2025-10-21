@@ -2,10 +2,5 @@
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "@vercel/node@3.0.0"
-    }
-  }
+  "installCommand": "npm install"
 }
