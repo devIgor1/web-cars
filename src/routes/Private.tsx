@@ -1,15 +1,22 @@
-import { useContext, ReactNode } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { ReactNode } from "react"
+import { useAuth } from "../contexts/AuthContext"
 import { Navigate } from "react-router-dom"
 
 export function Private({ children }: { children: ReactNode }): any {
-  const { signed, loadingAuth } = useContext(AuthContext)
+  const { currentUser, loading } = useAuth()
 
-  if (loadingAuth) {
-    return <div></div>
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
-  if (!signed) return <Navigate to="/login" />
+  if (!currentUser) return <Navigate to="/login" />
 
   return children
 }
