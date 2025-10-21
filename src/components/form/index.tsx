@@ -3,8 +3,8 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { Input } from "../../components/input"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ChangeEvent, useContext, useState } from "react"
-import { AuthContext } from "../../context/AuthContext"
+import { ChangeEvent, useState } from "react"
+import { useAuth } from "../../contexts/AuthContext"
 import { v4 as uuidv4 } from "uuid"
 import { db, storage } from "../../services/firebaseConnection"
 import {
@@ -50,7 +50,7 @@ interface ImageItemProps {
 }
 
 export function Form() {
-  const { user } = useContext(AuthContext)
+  const { currentUser } = useAuth()
   const navigate = useNavigate()
 
   const {
@@ -66,11 +66,11 @@ export function Form() {
   const [carImages, setCarImages] = useState<ImageItemProps[]>([])
 
   async function handleUpload(image: File) {
-    if (!user?.uid) {
+    if (!currentUser?.uid) {
       return
     }
 
-    const currentUid = user?.uid
+    const currentUid = currentUser?.uid
 
     const uidImage = uuidv4()
 
@@ -127,8 +127,8 @@ export function Form() {
       price: data.price,
       description: data.description,
       created: new Date(),
-      owner: user?.name,
-      uid: user?.uid,
+      owner: currentUser?.displayName || 'Unknown',
+      uid: currentUser?.uid,
       images: carListImages,
     })
       .then(() => {
