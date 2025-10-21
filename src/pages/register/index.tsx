@@ -11,9 +11,10 @@ import {
   updateProfile,
 } from "firebase/auth"
 import { auth } from "../../services/firebaseConnection"
-import { useEffect, useContext } from "react"
+import { useEffect, useContext, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import toast from "react-hot-toast"
+import { FaArrowLeft, FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock } from "react-icons/fa"
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -35,8 +36,8 @@ type FormData = z.infer<typeof schema>
 
 export function Register() {
   const { handleUserInfo } = useContext(AuthContext)
-
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register,
@@ -77,58 +78,135 @@ export function Register() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-zinc-950 font-poppins">
+    <div className="w-full min-h-screen relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900"></div>
+      <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-bounce-gentle"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-bounce-gentle" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-bounce-gentle" style={{ animationDelay: '2s' }}></div>
+      </div>
+
       <Container>
-        <div className="flex items-center flex-col justify-center">
-          <img className="w-[300px]" src={logo} alt="" />
-
-          <div className="bg-white w-full max-w-xl rounded-lg m-10">
-            <form
-              className="p-5 flex itesm-center justify-center flex-col"
-              onSubmit={handleSubmit(handleRegister)}
+        <div className="relative z-10 flex items-center justify-center min-h-screen py-12">
+          <div className="w-full max-w-md">
+            {/* Back Button */}
+            <Link 
+              to="/" 
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 mb-8 group"
             >
-              <label className="text-xl mb-2">Name</label>
-              <Input
-                type="name"
-                name="name"
-                error={errors.name?.message}
-                register={register}
-              />
-              <label className="text-xl mb-2">Email</label>
-              <Input
-                type="email"
-                name="email"
-                error={errors.email?.message}
-                register={register}
-              />
+              <FaArrowLeft className="group-hover:-translate-x-1 transition-transform duration-300" />
+              <span>Back to home</span>
+            </Link>
 
-              <label className="text-xl mt-2">Password</label>
-              <Input
-                type="password"
-                name="password"
-                error={errors.password?.message}
-                register={register}
-              />
-
-              <div className="flex items-center justify-center mt-5">
-                <button className="border-2 border-black py-1 px-4 rounded font-bold hover:bg-black hover:text-white hover:scale-110 duration-300">
-                  Register
-                </button>
+            {/* Logo */}
+            <div className="text-center mb-8">
+              <div className="relative inline-block">
+                <img className="w-24 h-24 mx-auto mb-4" src={logo} alt="WebCars" />
+                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-lg"></div>
               </div>
-            </form>
-          </div>
-          <div className="text-white">
-            <h2 className="text-xl">
-              Already a member?{" "}
-              <Link to="/login" className="text-white text-xl underline">
-                Log in
-              </Link>{" "}
-              here
-            </h2>
-            <div className="text-white flex items-center justify-center mt-16">
-              <Link to="/" className="underline">
-                Back to home
-              </Link>
+              <h1 className="text-3xl font-bold text-gradient mb-2">Join WebCars</h1>
+              <p className="text-white/70">Create your account to start selling cars</p>
+            </div>
+
+            {/* Register Form */}
+            <div className="card p-8 animate-fade-in-up">
+              <form onSubmit={handleSubmit(handleRegister)} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">
+                    Full Name
+                  </label>
+                  <div className="relative">
+                    <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" size={16} />
+                    <Input
+                      type="text"
+                      name="name"
+                      error={errors.name?.message}
+                      register={register}
+                      placeholder="Enter your full name"
+                      className="pl-12"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" size={16} />
+                    <Input
+                      type="email"
+                      name="email"
+                      error={errors.email?.message}
+                      register={register}
+                      placeholder="Enter your email"
+                      className="pl-12"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-white mb-2">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" size={16} />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      error={errors.password?.message}
+                      register={register}
+                      placeholder="Create a password"
+                      className="pl-12 pr-12"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white transition-colors duration-300"
+                    >
+                      {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <input 
+                    type="checkbox" 
+                    className="mt-1 rounded border-white/20 bg-white/5 text-primary-500 focus:ring-primary-500 focus:ring-offset-0" 
+                    required
+                  />
+                  <span className="text-sm text-white/70">
+                    I agree to the{" "}
+                    <a href="#" className="text-primary-400 hover:text-primary-300 transition-colors duration-300">
+                      Terms of Service
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="text-primary-400 hover:text-primary-300 transition-colors duration-300">
+                      Privacy Policy
+                    </a>
+                  </span>
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="btn-primary w-full py-4 text-lg font-semibold"
+                >
+                  Create Account
+                </button>
+              </form>
+
+              <div className="mt-8 text-center">
+                <p className="text-white/70">
+                  Already have an account?{" "}
+                  <Link 
+                    to="/login" 
+                    className="text-primary-400 hover:text-primary-300 font-semibold transition-colors duration-300"
+                  >
+                    Sign in here
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
