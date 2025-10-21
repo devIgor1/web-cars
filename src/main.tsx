@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client"
 import "./index.css"
 import { router } from "./App.tsx"
 import { RouterProvider } from "react-router-dom"
-import AuthProvider from "./context/AuthContext.tsx"
+import { AuthProvider } from "./contexts/AuthContext"
 import { register } from "swiper/element/bundle"
 
 register()
