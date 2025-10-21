@@ -1,10 +1,21 @@
 import { Header } from "../Header"
 import { Footer } from "../Footer"
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
+import { useEffect } from "react"
 
-export function Layout() {  
+export function Layout() {
+  const location = useLocation()
+
+  // Scroll to top when route changes
+  useEffect(() => {
+    // Use setTimeout to ensure DOM is ready
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    }, 0)
+  }, [location.pathname])
+  
   return (
-    <div className="min-h-screen w-full relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen w-full relative bg-gradient-to-br from-gray-50 via-white to-gray-100">
       {/* Beautiful Light Background with Subtle Patterns */}
       <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-blue-50/30"></div>
       
@@ -29,7 +40,7 @@ export function Layout() {
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header />
-        <main className="pt-20 flex-1">
+        <main className="pt-20 flex-1 relative">
           <Outlet />
         </main>
         <div className="relative z-20">
