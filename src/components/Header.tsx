@@ -1,5 +1,5 @@
 import { Button } from "./ui/button"
-import { Menu, Search, LogOut, User, X, Car } from "lucide-react"
+import { Menu, Search, LogOut, User, X, Car, Settings, ChevronDown } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
 import { useState, useEffect, useRef } from "react"
@@ -21,7 +21,9 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [isSearching, setIsSearching] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
+  const userMenuRef = useRef<HTMLDivElement>(null)
 
   const handleLogout = async () => {
     try {
@@ -91,16 +93,19 @@ export function Header() {
         setSearchQuery("")
         setSearchResults([])
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false)
+      }
     }
 
-    if (isSearchOpen) {
+    if (isSearchOpen || isUserMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside)
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [isSearchOpen])
+  }, [isSearchOpen, isUserMenuOpen])
 
   const handleSearchToggle = () => {
     setIsSearchOpen(!isSearchOpen)
@@ -122,10 +127,8 @@ export function Header() {
               Web Cars
             </Link>
             <nav className="hidden lg:flex items-center gap-8">
-              <a href="#inventory" className="text-black hover:text-gray-600 transition-colors">Inventory</a>
-              <a href="/about" className="text-black hover:text-gray-600 transition-colors">About</a>
-              <a href="#financing" className="text-black hover:text-gray-600 transition-colors">Financing</a>
-              <a href="#contact" className="text-black hover:text-gray-600 transition-colors">Contact</a>
+              <Link to="/" className="text-black hover:text-gray-600 transition-colors">Cars</Link>
+              <Link to="/about" className="text-black hover:text-gray-600 transition-colors">About</Link>
             </nav>
           </div>
           <div className="flex items-center gap-6">
@@ -218,34 +221,90 @@ export function Header() {
               )}
             </div>
             {currentUser ? (
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-gray-600" />
-                  <span className="text-sm text-gray-700">
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <User className="h-4 w-4 text-gray-600" />
+                  </div>
+                  <span className="text-sm text-gray-700 font-medium">
                     {currentUser.displayName || currentUser.email}
                   </span>
-                </div>
-                <Button
-                  onClick={handleLogout}
-                  variant="outline"
-                  size="sm"
-                  className="border-gray-300 text-gray-700 hover:bg-gray-50"
-                >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Logout
-                </Button>
+                  <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* User Dropdown Menu */}
+                {isUserMenuOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+                    <div className="p-2">
+                      {/* User Info */}
+                      <div className="px-3 py-2 border-b border-gray-100">
+                        <p className="text-sm font-medium text-gray-900">
+                          {currentUser.displayName || 'User'}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {currentUser.email}
+                        </p>
+                      </div>
+
+                      {/* Menu Items */}
+                      <div className="py-1">
+                        <Link
+                          to="/dashboard"
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <Car className="h-4 w-4" />
+                          Dashboard
+                        </Link>
+                        <Link
+                          to="/profile"
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <User className="h-4 w-4" />
+                          Profile
+                        </Link>
+                        <Link
+                          to="/settings"
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <Settings className="h-4 w-4" />
+                          Settings
+                        </Link>
+                      </div>
+
+                      {/* Logout */}
+                      <div className="border-t border-gray-100 pt-1">
+                        <button
+                          onClick={() => {
+                            setIsUserMenuOpen(false)
+                            handleLogout()
+                          }}
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 w-full text-left"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          Logout
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-4">
                 <Link 
                   to="/login" 
-                  className="text-black hover:text-gray-600 transition-colors font-medium text-sm uppercase tracking-wide"
+                  className="px-4 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition-all duration-200 font-medium text-sm"
                 >
                   Sign In
                 </Link>
                 <Link 
                   to="/register" 
-                  className="text-black hover:text-gray-600 transition-colors font-medium text-sm uppercase tracking-wide"
+                  className="px-6 py-2 bg-black text-white hover:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-sm"
                 >
                   Sign Up
                 </Link>
