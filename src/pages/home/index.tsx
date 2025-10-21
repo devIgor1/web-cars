@@ -1,5 +1,5 @@
 import Container from "../../components/container"
-import { FiSearch } from "react-icons/fi"
+import { FiSearch, FiMapPin, FiCalendar, FiActivity } from "react-icons/fi"
 import { useState, useEffect } from "react"
 import { collection, query, getDocs, orderBy } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
@@ -64,70 +64,135 @@ export function Home() {
   return (
     <Container>
       <div className="font-poppins">
-        <section className="bg-white p-5 w-full max-w-3xl mx-auto flex items-center justify-center gap-2 rounded-lg">
-          <input
-            type="text"
-            placeholder="Type Car Name"
-            className="w-full border-2 rounded-lg h-9 px-3 outline-none font-medium"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button className="text-black hover:scale-125 duration-300">
-            <FiSearch size={28} />
-          </button>
+        {/* Hero Section */}
+        <section className="text-center py-16 animate-fade-in-up">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+            Find Your Dream{" "}
+            <span className="text-gradient">Car</span>
+          </h1>
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Discover premium vehicles from trusted sellers. Your perfect car is just a search away.
+          </p>
+          
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mb-16">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+              <div className="relative glass-effect p-2 rounded-2xl">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 relative">
+                    <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" size={20} />
+                    <input
+                      type="text"
+                      placeholder="Search for your dream car..."
+                      className="input-field pl-12 pr-4 py-4 text-lg"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </div>
+                  <button className="btn-primary px-8 py-4 text-lg">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <h1 className="text-white text-center mt-6 text-3xl mb-4 font-montserrat italic">
-          Not just a car, but your{" "}
-          <span className="border-b-2 border-white pb-1">passion</span>
-        </h1>
+        {/* Stats Section */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 animate-slide-in-left">
+          <div className="text-center glass-effect p-8 rounded-2xl">
+            <div className="text-4xl font-bold text-gradient mb-2">{cars.length}+</div>
+            <div className="text-white/80">Premium Cars</div>
+          </div>
+          <div className="text-center glass-effect p-8 rounded-2xl">
+            <div className="text-4xl font-bold text-gradient mb-2">100%</div>
+            <div className="text-white/80">Verified Sellers</div>
+          </div>
+          <div className="text-center glass-effect p-8 rounded-2xl">
+            <div className="text-4xl font-bold text-gradient mb-2">24/7</div>
+            <div className="text-white/80">Customer Support</div>
+          </div>
+        </section>
 
-        <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 bg-white p-5 rounded-lg">
+        {/* Cars Grid */}
+        <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {cars
             .filter((car) => {
               return search.toLowerCase() === ""
                 ? car
                 : car.name.toLowerCase().includes(search)
             })
-            .map((car) => (
-              <Link to={`/car/${car.id}`} key={car.id}>
-                <section className="text-black w-full rounded-lg">
-                  <div
-                    className="w-full h-72 rounded-lg bg-slate-200"
-                    style={{
-                      display: loadImages.includes(car.id) ? "none" : "block",
-                    }}
-                  >
-                    <span className="flex items-center justify-center h-full">
-                      <AiOutlineLoading3Quarters size={28} />
-                    </span>
-                  </div>
-                  <img
-                    className="w-full h-[290px] rounded-lg hover:scale-105 duration-300"
-                    src={car.images[0].url}
-                    alt="car"
-                    onLoad={() => handleImageLoad(car.id)}
-                    style={{
-                      display: loadImages.includes(car.id) ? "block" : "none",
-                    }}
-                  />
-                  <p className="font-bold mt-1 mb-2 px-2 text-xl">{car.name}</p>
-
-                  <div className="flex flex-col px-2">
-                    <span className="text-zinc-900 text-base mb-6">
-                      Year: {car.year} | {car.km}km
-                    </span>
-                    <strong className="text-xl">$ {car.price}</strong>
+            .map((car, index) => (
+              <Link to={`/car/${car.id}`} key={car.id} className="group">
+                <div className="card card-hover p-0 overflow-hidden animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden">
+                    <div
+                      className="w-full h-64 bg-gradient-to-br from-dark-700 to-dark-800 flex items-center justify-center"
+                      style={{
+                        display: loadImages.includes(car.id) ? "none" : "flex",
+                      }}
+                    >
+                      <AiOutlineLoading3Quarters size={32} className="text-primary-500 animate-spin" />
+                    </div>
+                    <img
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                      src={car.images[0].url}
+                      alt={car.name}
+                      onLoad={() => handleImageLoad(car.id)}
+                      style={{
+                        display: loadImages.includes(car.id) ? "block" : "none",
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute top-4 right-4 bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      Featured
+                    </div>
                   </div>
 
-                  <div className="w-full h-px bg-black my-2"></div>
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors duration-300">
+                      {car.name}
+                    </h3>
 
-                  <div className="px-2 pb-2">
-                    <span className="text-zinc-900">{car.city}</span>
+                    <div className="space-y-3 mb-4">
+                      <div className="flex items-center gap-2 text-white/70">
+                        <FiCalendar size={16} />
+                        <span className="text-sm">{car.year}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-white/70">
+                        <FiActivity size={16} />
+                        <span className="text-sm">{car.km} km</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-white/70">
+                        <FiMapPin size={16} />
+                        <span className="text-sm">{car.city}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="text-2xl font-bold text-gradient">
+                        ${car.price}
+                      </div>
+                      <div className="text-sm text-white/60">
+                        View Details →
+                      </div>
+                    </div>
                   </div>
-                </section>
+                </div>
               </Link>
             ))}
         </main>
+
+        {/* Empty State */}
+        {cars.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">🚗</div>
+            <h3 className="text-2xl font-bold text-white mb-4">No cars found</h3>
+            <p className="text-white/60 mb-8">Be the first to list a car on our platform!</p>
+          </div>
+        )}
       </div>
     </Container>
   )
