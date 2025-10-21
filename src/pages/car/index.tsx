@@ -1,10 +1,12 @@
 import { doc, getDoc } from "firebase/firestore"
 import Container from "../../components/container"
 import { useEffect, useState } from "react"
-import { FaWhatsapp } from "react-icons/fa"
+import { FaWhatsapp, FaArrowLeft, FaCalendar, FaMapPin, FaUser, FaPhone } from "react-icons/fa"
+import { FiActivity } from "react-icons/fi"
 import { useNavigate, useParams } from "react-router-dom"
 import { db } from "../../services/firebaseConnection"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { Link } from "react-router-dom"
 
 interface CarProps {
   id: string
@@ -87,66 +89,122 @@ export function CarDetail() {
 
   return (
     <Container>
-      <div className="rounded- w-full bg-white rounded-lg p-6 my-4 font-poppins">
-        {car && (
-          <Swiper
-            slidesPerView={sliderPreview}
-            pagination={{ clickable: true }}
-            navigation
-          >
-            {car?.images.map((image) => (
-              <SwiperSlide key={image.name}>
-                <img
-                  src={image.url}
-                  className="w-full h-96 object-cover mb-9 rounded-lg"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
+      <div className="py-8">
+        {/* Back Button */}
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 mb-8 group"
+        >
+          <FaArrowLeft className="group-hover:-translate-x-1 transition-transform duration-300" />
+          <span>Back to cars</span>
+        </Link>
 
         {car && (
-          <main>
-            <div className="flex flex-col sm:flex-row mb-4 items-center justify-between">
-              <h1 className="font-bold text-3xl">{car?.name}</h1>
-              <h1 className="font-bold text-3xl">${car?.price}</h1>
+          <div className="card p-0 overflow-hidden animate-fade-in-up">
+            {/* Image Gallery */}
+            <div className="relative">
+              <Swiper
+                slidesPerView={sliderPreview}
+                pagination={{ clickable: true }}
+                navigation
+                className="w-full"
+              >
+                {car?.images.map((image, index) => (
+                  <SwiperSlide key={image.name}>
+                    <div className="relative group">
+                      <img
+                        src={image.url}
+                        className="w-full h-96 md:h-[500px] object-cover"
+                        alt={`${car.name} - Image ${index + 1}`}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
-            <p className="text-lg">{car.model}</p>
 
-            <div className="flex w-full gap-6 my-4">
-              <div className="flex flex-col gap-4">
+            {/* Content */}
+            <div className="p-8">
+              {/* Header */}
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
                 <div>
-                  <p>City</p>
-                  <strong>{car?.city}</strong>
+                  <h1 className="text-4xl font-bold text-white mb-2">{car?.name}</h1>
+                  <p className="text-xl text-white/70">{car.model}</p>
                 </div>
-                <div>
-                  <p>Year</p>
-                  <strong>{car?.year}</strong>
-                </div>
-              </div>
-              <div className="flex flex-col gap-4">
-                <div>
-                  <p>Km</p>
-                  <strong>{car?.km}</strong>
+                <div className="mt-4 lg:mt-0">
+                  <div className="text-4xl font-bold text-gradient">${car?.price}</div>
+                  <p className="text-white/60 text-sm">Asking Price</p>
                 </div>
               </div>
+
+              {/* Car Details Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="glass-effect p-6 rounded-xl">
+                  <div className="flex items-center gap-3 mb-2">
+                    <FaCalendar className="text-primary-400" size={20} />
+                    <span className="text-white/70 font-medium">Year</span>
+                  </div>
+                  <div className="text-2xl font-bold text-white">{car?.year}</div>
+                </div>
+
+                <div className="glass-effect p-6 rounded-xl">
+                  <div className="flex items-center gap-3 mb-2">
+                    <FiActivity className="text-primary-400" size={20} />
+                    <span className="text-white/70 font-medium">Mileage</span>
+                  </div>
+                  <div className="text-2xl font-bold text-white">{car?.km} km</div>
+                </div>
+
+                <div className="glass-effect p-6 rounded-xl">
+                  <div className="flex items-center gap-3 mb-2">
+                    <FaMapPin className="text-primary-400" size={20} />
+                    <span className="text-white/70 font-medium">Location</span>
+                  </div>
+                  <div className="text-2xl font-bold text-white">{car?.city}</div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-white mb-4">Description</h3>
+                <div className="glass-effect p-6 rounded-xl">
+                  <p className="text-white/80 leading-relaxed text-lg">{car?.description}</p>
+                </div>
+              </div>
+
+              {/* Seller Information */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-white mb-4">Seller Information</h3>
+                <div className="glass-effect p-6 rounded-xl">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center">
+                      <FaUser className="text-white" size={20} />
+                    </div>
+                    <div>
+                      <div className="text-xl font-semibold text-white">{car?.owner}</div>
+                      <div className="text-white/60">Verified Seller</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <FaPhone className="text-primary-400" size={18} />
+                    <span className="text-white/80 text-lg">{car?.phone}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Button */}
+              <a
+                href={`https://api.whatsapp.com/send?phone=${car?.phone}&text=Hello! I came across your ${car?.name} advertisement on the Web Cars website, and I'm quite interested. Could you provide more details or information about it, please?`}
+                target="_blank"
+                className="btn-secondary w-full py-4 text-lg font-semibold flex items-center justify-center gap-3 group"
+              >
+                <FaWhatsapp size={24} />
+                <span>Contact Seller on WhatsApp</span>
+                <div className="group-hover:translate-x-1 transition-transform duration-300">→</div>
+              </a>
             </div>
-            <strong>Description</strong>
-            <p className="mb-4">{car?.description}</p>
-            <strong>Phone</strong>
-            <p className="mb-4">{car?.phone}</p>
-            <a
-              href={`https://api.whatsapp.com/send?phone=${car?.phone}&text=Hello! I came across your ${car?.name} advertisement on the Web Cars website, and I'm quite interested. Could you provide more details or information about it, please?`}
-              target="_blank"
-              className="bg-green-500 w-full p-3 text-white flex items-center justify-center gap-2 my-6 h-14 text-center md:h-11 text-base md:text-xl rounded-lg cursor-pointer font-bold hover:bg-green-400 duration-300"
-            >
-              Interested? Reach out to the seller for details and purchase
-              options.
-              <span>
-                <FaWhatsapp size={26} />
-              </span>
-            </a>
-          </main>
+          </div>
         )}
       </div>
     </Container>
