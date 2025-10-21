@@ -124,7 +124,6 @@ export function Register() {
                       error={errors.name?.message}
                       register={register}
                       placeholder="Enter your full name"
-                      className="pl-12"
                     />
                   </div>
                 </div>
@@ -141,7 +140,6 @@ export function Register() {
                       error={errors.email?.message}
                       register={register}
                       placeholder="Enter your email"
-                      className="pl-12"
                     />
                   </div>
                 </div>
@@ -158,7 +156,6 @@ export function Register() {
                       error={errors.password?.message}
                       register={register}
                       placeholder="Create a password"
-                      className="pl-12 pr-12"
                     />
                     <button
                       type="button"
