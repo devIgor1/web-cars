@@ -1,4 +1,6 @@
 import { RegisterOptions, UseFormRegister } from "react-hook-form"
+import { Input as ShadcnInput } from "../ui/input"
+import { cn } from "../../lib/utils"
 
 interface InputProps {
   type: string
@@ -7,6 +9,7 @@ interface InputProps {
   error?: string
   rules?: RegisterOptions
   placeholder?: string
+  className?: string
 }
 
 export function Input({
@@ -16,17 +19,23 @@ export function Input({
   error,
   rules,
   placeholder,
+  className,
 }: InputProps) {
   return (
-    <div>
-      <input
-        className="w-full border-2 border-zinc-200 px-2 p-1 outline-none rounded-lg"
+    <div className="space-y-1.5">
+      <ShadcnInput
         type={type}
         {...register(name, rules)}
         id={name}
         placeholder={placeholder}
+        className={cn(
+          error && "border-destructive focus-visible:ring-destructive",
+          className
+        )}
       />
-      {error && <p className="text-red-500 font-poppins">{error}</p>}
+      {error && (
+        <p className="text-sm text-destructive font-medium">{error}</p>
+      )}
     </div>
   )
 }
