@@ -213,3 +213,4 @@ export async function getCarsFromFirestore() {
     throw error
   }
 }
+

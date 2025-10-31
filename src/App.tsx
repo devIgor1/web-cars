@@ -6,7 +6,6 @@ import { Dashboard } from "./pages/dashboard"
 import { New } from "./pages/dashboard/new"
 import { CarDetails } from "./pages/CarDetails"
 import { About } from "./pages/about"
-import { FAQ } from "./pages/faq"
 
 import { Layout } from "./components/layout"
 import { Private } from "./routes/Private"
@@ -27,10 +26,6 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
-      },
-      {
-        path: "/faq",
-        element: <FAQ />,
       },
       {
         path: "/dashboard",

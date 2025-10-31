@@ -27,16 +27,25 @@ export interface Car {
   features?: string[]
   specifications?: {
     engine: string
-    horsepower: number
+    horsepower: string
     torque: string
     acceleration: string
     topSpeed: string
     transmission: string
     drivetrain: string
+    fuelType: string
     fuelEconomy?: string
     range?: string
     charging?: string
   }
+  // Direct fields for easier access
+  engine?: string
+  horsepower?: string
+  torque?: string
+  acceleration?: string
+  topSpeed?: string
+  drivetrain?: string
+  fuelType?: string
   gallery?: string[]
   createdAt?: Date
   updatedAt?: Date

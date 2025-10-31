@@ -43,39 +43,39 @@
 }
 
 .dark {
-  /* Enhanced dark theme with better contrast and modern colors */
-  --background: oklch(0.08 0.02 240);
-  --foreground: oklch(0.95 0.01 240);
-  --card: oklch(0.12 0.02 240);
-  --card-foreground: oklch(0.95 0.01 240);
-  --popover: oklch(0.12 0.02 240);
-  --popover-foreground: oklch(0.95 0.01 240);
-  --primary: oklch(0.7 0.15 240);
-  --primary-foreground: oklch(0.08 0.02 240);
-  --secondary: oklch(0.2 0.02 240);
-  --secondary-foreground: oklch(0.95 0.01 240);
-  --muted: oklch(0.2 0.02 240);
-  --muted-foreground: oklch(0.65 0.01 240);
-  --accent: oklch(0.65 0.19 195);
-  --accent-foreground: oklch(0.08 0.02 240);
-  --destructive: oklch(0.55 0.2 15);
-  --destructive-foreground: oklch(0.95 0.01 240);
-  --border: oklch(0.25 0.02 240);
-  --input: oklch(0.15 0.02 240);
-  --ring: oklch(0.7 0.15 240);
-  --chart-1: oklch(0.6 0.2 240);
-  --chart-2: oklch(0.65 0.19 195);
-  --chart-3: oklch(0.7 0.15 120);
-  --chart-4: oklch(0.6 0.2 300);
-  --chart-5: oklch(0.65 0.18 60);
-  --sidebar: oklch(0.1 0.02 240);
-  --sidebar-foreground: oklch(0.95 0.01 240);
-  --sidebar-primary: oklch(0.7 0.15 240);
-  --sidebar-primary-foreground: oklch(0.08 0.02 240);
-  --sidebar-accent: oklch(0.15 0.02 240);
-  --sidebar-accent-foreground: oklch(0.95 0.01 240);
-  --sidebar-border: oklch(0.25 0.02 240);
-  --sidebar-ring: oklch(0.7 0.15 240);
+  /* Dark theme with color palette from the image */
+  --background: #0a0a0a; /* Very dark gray/black primary background */
+  --foreground: #ffffff; /* Bright white text */
+  --card: #1a1a1a; /* Slightly lighter dark gray for content blocks */
+  --card-foreground: #ffffff; /* White text on cards */
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #00b0b3; /* Green accent color */
+  --primary-foreground: #ffffff;
+  --secondary: #2a2a2a; /* Dark gray for secondary elements */
+  --secondary-foreground: #ffffff;
+  --muted: #2a2a2a;
+  --muted-foreground: #d1d5db; /* Brighter gray for better contrast */
+  --accent: #00b0b3; /* Green accent */
+  --accent-foreground: #ffffff;
+  --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
+  --border: #404040; /* More visible border color */
+  --input: #1a1a1a;
+  --ring: #00b0b3;
+  --chart-1: #00b0b3;
+  --chart-2: #00a0a3;
+  --chart-3: #009093;
+  --chart-4: #008083;
+  --chart-5: #007073;
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #00b0b3;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #404040;
+  --sidebar-ring: #00b0b3;
 }
 
 @theme {

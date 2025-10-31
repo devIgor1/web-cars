@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import logo from "../../assets/logo.png"
-import { FaUserCircle, FaCar, FaHome, FaInfoCircle, FaQuestionCircle } from "react-icons/fa"
+import { FaUserCircle, FaCar, FaHome, FaInfoCircle } from "react-icons/fa"
 import { useAuth } from "../../contexts/AuthContext"
 
 export function Header() {
@@ -44,13 +44,6 @@ export function Header() {
             >
               <FaInfoCircle className="group-hover:scale-110 transition-transform duration-300" />
               <span className="font-medium">About</span>
-            </Link>
-            <Link 
-              to="/faq" 
-              className="flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 group"
-            >
-              <FaQuestionCircle className="group-hover:scale-110 transition-transform duration-300" />
-              <span className="font-medium">FAQ</span>
             </Link>
           </nav>
 

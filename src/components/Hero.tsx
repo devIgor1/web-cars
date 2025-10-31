@@ -6,15 +6,15 @@ export function Hero() {
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10 flex-1 flex flex-col justify-center">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-block mb-8 px-6 py-3 bg-cyan-500 text-white text-sm font-medium rounded-full">
+          <div className="inline-block mb-8 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-full">
             Premium Collection 2025
           </div>
 
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-8 text-balance uppercase">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-8 text-balance uppercase text-foreground">
             DRIVE YOUR DREAM
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
             Discover an exceptional collection of luxury and performance vehicles.
             <br />
             Every car tells a story of craftsmanship, innovation, and pure driving pleasure.
@@ -23,9 +23,9 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-3 text-gray-700 pb-8">
+      <div className="relative z-10 flex flex-col items-center gap-3 text-muted-foreground pb-8">
         <span className="text-xs uppercase tracking-wider font-bold">SCROLL TO EXPLORE</span>
-        <div className="w-px h-16 bg-gray-700" />
+        <div className="w-px h-16 bg-muted-foreground" />
       </div>
     </section>
   )

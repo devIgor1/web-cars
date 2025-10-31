@@ -1,5 +1,5 @@
 import { Button } from "./ui/button"
-import { Menu, Search, LogOut, User, X, Car, Settings, ChevronDown } from "lucide-react"
+import { Menu, Search, LogOut, X, Car, ChevronDown, User } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useAuth } from "../contexts/AuthContext"
 import { useState, useEffect, useRef } from "react"
@@ -116,19 +116,19 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex items-center gap-8">
             <button className="lg:hidden">
-              <Menu className="h-6 w-6 text-black" />
+              <Menu className="h-6 w-6 text-foreground" />
             </button>
-            <Link to="/" className="text-xl lg:text-2xl font-bold tracking-tight text-black">
+            <Link to="/" className="text-xl lg:text-2xl font-bold tracking-tight text-foreground">
               Web Cars
             </Link>
             <nav className="hidden lg:flex items-center gap-8">
-              <Link to="/" className="text-black hover:text-gray-600 transition-colors">Cars</Link>
-              <Link to="/about" className="text-black hover:text-gray-600 transition-colors">About</Link>
+              <Link to="/" className="text-foreground hover:text-muted-foreground transition-colors">Cars</Link>
+              <Link to="/about" className="text-foreground hover:text-muted-foreground transition-colors">About</Link>
             </nav>
           </div>
           <div className="flex items-center gap-6">
@@ -136,7 +136,7 @@ export function Header() {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="text-gray-700 hover:text-black hover:bg-gray-100 rounded-full border border-transparent hover:border-gray-200 transition-all duration-200 hover:cursor-pointer"
+                className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full border border-transparent hover:border-border transition-all duration-200 hover:cursor-pointer"
                 onClick={handleSearchToggle}
               >
                 <Search className="h-5 w-5" />
@@ -144,23 +144,23 @@ export function Header() {
               
               {/* Search Modal */}
               {isSearchOpen && (
-                <div className="absolute top-full right-0 mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+                <div className="absolute top-full right-0 mt-2 w-96 bg-card border border-border rounded-xl shadow-lg z-50">
                   <div className="p-4">
                     <div className="flex items-center gap-3 mb-4">
-                      <Search className="h-5 w-5 text-gray-400" />
+                      <Search className="h-5 w-5 text-muted-foreground" />
                       <input
                         type="text"
                         placeholder="Search for cars..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="flex-1 outline-none text-gray-900 placeholder-gray-500"
+                        className="flex-1 outline-none text-foreground placeholder-muted-foreground bg-transparent"
                         autoFocus
                       />
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={handleSearchToggle}
-                        className="h-8 w-8 text-gray-400 hover:text-gray-600"
+                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -170,8 +170,8 @@ export function Header() {
                     <div className="max-h-80 overflow-y-auto">
                       {isSearching ? (
                         <div className="flex items-center justify-center py-8">
-                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
-                          <span className="ml-2 text-gray-600">Searching...</span>
+                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                          <span className="ml-2 text-muted-foreground">Searching...</span>
                         </div>
                       ) : searchResults.length > 0 ? (
                         <div className="space-y-2">
@@ -179,10 +179,10 @@ export function Header() {
                             <Link
                               key={car.id}
                               to={`/cars/${car.id}`}
-                              className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+                              className="flex items-center gap-3 p-3 hover:bg-muted rounded-lg transition-colors"
                               onClick={handleSearchToggle}
                             >
-                              <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                              <div className="w-12 h-12 bg-muted rounded-lg overflow-hidden flex-shrink-0">
                                 {car.images && car.images.length > 0 ? (
                                   <img
                                     src={car.images[0].url}
@@ -191,13 +191,13 @@ export function Header() {
                                   />
                                 ) : (
                                   <div className="w-full h-full flex items-center justify-center">
-                                    <Car className="h-6 w-6 text-gray-400" />
+                                    <Car className="h-6 w-6 text-muted-foreground" />
                                   </div>
                                 )}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <h4 className="font-medium text-gray-900 truncate">{car.name}</h4>
-                                <p className="text-sm text-gray-600">
+                                <h4 className="font-medium text-foreground truncate">{car.name}</h4>
+                                <p className="text-sm text-muted-foreground">
                                   {car.year} • {car.city} • ${car.price.toLocaleString()}
                                 </p>
                               </div>
@@ -206,13 +206,13 @@ export function Header() {
                         </div>
                       ) : searchQuery ? (
                         <div className="text-center py-8">
-                          <Car className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                          <p className="text-gray-500">No cars found for "{searchQuery}"</p>
+                          <Car className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                          <p className="text-muted-foreground">No cars found for "{searchQuery}"</p>
                         </div>
                       ) : (
                         <div className="text-center py-8">
-                          <Search className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                          <p className="text-gray-500">Start typing to search for cars</p>
+                          <Search className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                          <p className="text-muted-foreground">Start typing to search for cars</p>
                         </div>
                       )}
                     </div>
@@ -224,27 +224,27 @@ export function Header() {
               <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted transition-colors duration-200"
                 >
-                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                    <User className="h-4 w-4 text-gray-600" />
+                  <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                    <User className="h-4 w-4 text-muted-foreground" />
                   </div>
-                  <span className="text-sm text-gray-700 font-medium">
+                  <span className="text-sm text-foreground font-medium">
                     {currentUser.displayName || currentUser.email}
                   </span>
-                  <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* User Dropdown Menu */}
                 {isUserMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+                  <div className="absolute top-full right-0 mt-2 w-56 bg-card border border-border rounded-xl shadow-lg z-50">
                     <div className="p-2">
                       {/* User Info */}
-                      <div className="px-3 py-2 border-b border-gray-100">
-                        <p className="text-sm font-medium text-gray-900">
+                      <div className="px-3 py-2 border-b border-border">
+                        <p className="text-sm font-medium text-foreground">
                           {currentUser.displayName || 'User'}
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           {currentUser.email}
                         </p>
                       </div>
@@ -253,38 +253,22 @@ export function Header() {
                       <div className="py-1">
                         <Link
                           to="/dashboard"
-                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-lg transition-colors duration-200"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           <Car className="h-4 w-4" />
                           Dashboard
                         </Link>
-                        <Link
-                          to="/profile"
-                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <User className="h-4 w-4" />
-                          Profile
-                        </Link>
-                        <Link
-                          to="/settings"
-                          className="flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <Settings className="h-4 w-4" />
-                          Settings
-                        </Link>
                       </div>
 
                       {/* Logout */}
-                      <div className="border-t border-gray-100 pt-1">
+                      <div className="border-t border-border pt-1">
                         <button
                           onClick={() => {
                             setIsUserMenuOpen(false)
                             handleLogout()
                           }}
-                          className="flex items-center gap-3 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 w-full text-left"
+                          className="flex items-center gap-3 px-3 py-2 text-sm text-destructive hover:bg-destructive/10 rounded-lg transition-colors duration-200 w-full text-left"
                         >
                           <LogOut className="h-4 w-4" />
                           Logout
@@ -298,13 +282,13 @@ export function Header() {
               <div className="flex items-center gap-4">
                 <Link 
                   to="/login" 
-                  className="px-4 py-2 text-gray-700 hover:text-black hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition-all duration-200 font-medium text-sm"
+                  className="px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg border border-transparent hover:border-border transition-all duration-200 font-medium text-sm"
                 >
                   Sign In
                 </Link>
                 <Link 
                   to="/register" 
-                  className="px-6 py-2 bg-black text-white hover:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-sm"
+                  className="px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 font-semibold text-sm"
                 >
                   Sign Up
                 </Link>

@@ -59,13 +59,13 @@ export function Login() {
   }
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen relative overflow-hidden bg-background">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-card/50 to-muted/30"></div>
       <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-bounce-gentle"></div>
-        <div className="absolute top-40 right-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-bounce-gentle" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-bounce-gentle" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-bounce-gentle"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-bounce-gentle" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-bounce-gentle" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <Container>
@@ -74,7 +74,7 @@ export function Login() {
             {/* Back Button */}
             <Link 
               to="/" 
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 mb-8 group"
+              className="inline-flex items-center gap-2 text-foreground/80 hover:text-foreground transition-colors duration-300 mb-8 group"
             >
               <FaArrowLeft className="group-hover:-translate-x-1 transition-transform duration-300" />
               <span>Back to home</span>
@@ -84,17 +84,17 @@ export function Login() {
             <div className="text-center mb-8">
               <div className="relative inline-block">
                 <img className="w-24 h-24 mx-auto mb-4" src={logo} alt="WebCars" />
-                <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-lg"></div>
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-lg"></div>
               </div>
-              <h1 className="text-3xl font-bold text-gradient mb-2">Welcome Back</h1>
-              <p className="text-white/70">Sign in to your account to continue</p>
+              <h1 className="text-3xl font-bold text-primary mb-2">Welcome Back</h1>
+              <p className="text-foreground/90">Sign in to your Web Cars account</p>
             </div>
 
             {/* Login Form */}
             <div className="card p-8 animate-fade-in-up">
               <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     Email Address
                   </label>
                   <Input
@@ -107,7 +107,7 @@ export function Login() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     Password
                   </label>
                   <div className="relative">
@@ -121,7 +121,7 @@ export function Login() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white transition-colors duration-300"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors duration-300"
                     >
                       {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
                     </button>
@@ -130,10 +130,10 @@ export function Login() {
 
                 <div className="flex items-center justify-between">
                   <label className="flex items-center">
-                    <input type="checkbox" className="rounded border-white/20 bg-white/5 text-primary-500 focus:ring-primary-500 focus:ring-offset-0" />
-                    <span className="ml-2 text-sm text-white/70">Remember me</span>
+                    <input type="checkbox" className="rounded border-border bg-card text-primary focus:ring-primary focus:ring-offset-0" />
+                    <span className="ml-2 text-sm text-foreground/90">Remember me</span>
                   </label>
-                  <a href="#" className="text-sm text-primary-400 hover:text-primary-300 transition-colors duration-300">
+                  <a href="#" className="text-sm text-primary hover:text-primary/80 transition-colors duration-300">
                     Forgot password?
                   </a>
                 </div>
@@ -147,11 +147,11 @@ export function Login() {
               </form>
 
               <div className="mt-8 text-center">
-                <p className="text-white/70">
+                <p className="text-foreground/90">
                   Don't have an account?{" "}
                   <Link 
                     to="/register" 
-                    className="text-primary-400 hover:text-primary-300 font-semibold transition-colors duration-300"
+                    className="text-primary hover:text-primary/80 font-semibold transition-colors duration-300"
                   >
                     Sign up here
                   </Link>

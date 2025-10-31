@@ -13,6 +13,10 @@ import "swiper/css/pagination"
 import "swiper/css/scrollbar"
 import { Toaster } from "react-hot-toast"
 
+// Ensure light mode is always applied
+document.documentElement.classList.remove('dark')
+document.documentElement.classList.add('light')
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Toaster position="top-right" reverseOrder={false} />

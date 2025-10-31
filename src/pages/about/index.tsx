@@ -254,9 +254,6 @@ export function About() {
               <Link to="/dashboard" className="btn-secondary px-8 py-4 text-lg text-center">
                 List Your Car
               </Link>
-              <Link to="/faq" className="btn-outline px-8 py-4 text-lg text-center">
-                View FAQ
-              </Link>
             </div>
           </div>
         </section>

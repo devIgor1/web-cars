@@ -249,7 +249,15 @@ export function CarDetails() {
                   </div>
                   <div className="flex justify-between py-3 border-b border-border">
                     <span className="text-muted-foreground">Drivetrain</span>
-                    <span className="font-semibold">{car.specifications?.drivetrain || 'Not specified'}</span>
+                    <span className="font-semibold">{car.specifications?.drivetrain || car.drivetrain || 'Not specified'}</span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-border">
+                    <span className="text-muted-foreground">Transmission</span>
+                    <span className="font-semibold">{car.specifications?.transmission || car.transmission || 'Not specified'}</span>
+                  </div>
+                  <div className="flex justify-between py-3 border-b border-border">
+                    <span className="text-muted-foreground">Fuel Type</span>
+                    <span className="font-semibold">{car.specifications?.fuelType || car.fuelType || car.fuel || 'Not specified'}</span>
                   </div>
                 </div>
               </Card>

@@ -38,6 +38,15 @@ const schema = z.object({
       message: "Invalid phone number",
     }),
   description: z.string().min(1, "Description is required"),
+  // Performance & Engine specifications
+  engine: z.string().min(1, "Engine is required"),
+  horsepower: z.string().min(1, "Horsepower is required"),
+  torque: z.string().min(1, "Torque is required"),
+  acceleration: z.string().min(1, "0-60 mph time is required"),
+  topSpeed: z.string().min(1, "Top speed is required"),
+  drivetrain: z.string().min(1, "Drivetrain is required"),
+  transmission: z.string().min(1, "Transmission is required"),
+  fuelType: z.string().min(1, "Fuel type is required"),
 })
 
 type FormData = z.infer<typeof schema>
@@ -126,6 +135,15 @@ export function Form() {
       km: data.km,
       price: data.price,
       description: data.description,
+      // Performance & Engine specifications
+      engine: data.engine,
+      horsepower: data.horsepower,
+      torque: data.torque,
+      acceleration: data.acceleration,
+      topSpeed: data.topSpeed,
+      drivetrain: data.drivetrain,
+      transmission: data.transmission,
+      fuelType: data.fuelType,
       created: new Date(),
       owner: currentUser?.displayName || 'Unknown',
       uid: currentUser?.uid,
@@ -281,6 +299,103 @@ export function Form() {
             {errors.description && (
               <p className="text-red-500">{errors.description?.message}</p>
             )}
+          </div>
+
+          {/* Performance & Engine Specifications */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">Performance & Engine</h3>
+            
+            <div className="w-full flex mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Engine</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="engine"
+                  error={errors.engine?.message}
+                  placeholder="e.g. 3.8L Twin-Turbo V8"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">Horsepower</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="horsepower"
+                  error={errors.horsepower?.message}
+                  placeholder="e.g. 640 HP"
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Torque</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="torque"
+                  error={errors.torque?.message}
+                  placeholder="e.g. 590 lb-ft"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">0-60 mph</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="acceleration"
+                  error={errors.acceleration?.message}
+                  placeholder="e.g. 2.6s"
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Top Speed</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="topSpeed"
+                  error={errors.topSpeed?.message}
+                  placeholder="e.g. 205 mph"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">Drivetrain</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="drivetrain"
+                  error={errors.drivetrain?.message}
+                  placeholder="e.g. All-Wheel Drive"
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex mb-3 flex-row items-center gap-4">
+              <div className="w-full">
+                <p className="mb-2 font-medium">Transmission</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="transmission"
+                  error={errors.transmission?.message}
+                  placeholder="e.g. 8-Speed PDK"
+                />
+              </div>
+              <div className="w-full">
+                <p className="mb-2 font-medium">Fuel Type</p>
+                <Input
+                  register={register}
+                  type="text"
+                  name="fuelType"
+                  error={errors.fuelType?.message}
+                  placeholder="e.g. Gasoline"
+                />
+              </div>
+            </div>
           </div>
 
           <Button type="submit">Register</Button>

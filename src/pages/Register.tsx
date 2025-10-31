@@ -74,14 +74,14 @@ export function Register() {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="pt-20 pb-20">
+      <main className="pt-20 pb-20 mt-6">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-md mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-balance text-gray-800">
+              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-balance text-primary">
                 Create Account
               </h1>
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-foreground/90">
                 Join Web Cars and start your journey
               </p>
             </div>

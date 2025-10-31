@@ -74,3 +74,4 @@ export function getSampleCars(cars: ExistingCar[], limit: number = 4): ExistingC
     status: car.status || 'Available'
   }))
 }
+
