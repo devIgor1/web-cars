@@ -77,7 +77,7 @@ export function FeaturedCars() {
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h4 className="text-xl font-bold mb-1 text-black">{car.name}</h4>
+                    <h4 className="text-xl font-bold mb-1 text-black break-words">{car.name}</h4>
                     <p className="text-sm text-gray-500">{car.year}</p>
                   </div>
                   <p className="text-xl font-bold text-black">${car.price.toLocaleString()}</p>

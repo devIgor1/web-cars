@@ -171,7 +171,7 @@ export function CarDetails() {
                     {car.year}
                   </Badge>
                 </div>
-                <h1 className="font-serif text-4xl lg:text-5xl font-bold mb-4 text-balance">{car.name}</h1>
+                <h1 className="font-serif text-4xl lg:text-5xl font-bold mb-4 text-balance break-words">{car.name}</h1>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   <span>{car.city || 'Location not specified'}</span>
@@ -312,7 +312,18 @@ export function CarDetails() {
             {/* Right Column - Contact Card */}
             <div className="lg:col-span-1">
               <CarContactCard
-                price={`$${car.price.toLocaleString()}`}
+                price={(() => {
+                  // Handle price formatting - convert to number and format with commas
+                  let priceValue: number
+                  if (typeof car.price === 'string') {
+                    // Remove all formatting (periods, commas, spaces) and convert to number
+                    const cleanedPrice = car.price.replace(/[.,\s]/g, '')
+                    priceValue = parseFloat(cleanedPrice) || 0
+                  } else {
+                    priceValue = Number(car.price) || 0
+                  }
+                  return `$${priceValue.toLocaleString('en-US')}`
+                })()}
                 carName={car.name}
                 carYear={car.year}
                 stockNumber={car.id}

@@ -329,26 +329,26 @@ export function Dashboard() {
                           </span>
                         </div>
                 
-                        {/* Action Buttons */}
+                {/* Action Buttons */}
                         <div className="absolute top-5 right-5 flex gap-2 z-10">
-                          <Link to={`/dashboard/edit/${car.id}`}>
+                  <Link to={`/dashboard/edit/${car.id}`}>
                             <button className="bg-white/95 backdrop-blur-md text-gray-800 p-3 rounded-xl hover:bg-white hover:scale-105 transition-all duration-300 shadow-xl border border-gray-200/50">
-                              <FaEdit size={16} />
-                            </button>
-                          </Link>
-                          <button
+                      <FaEdit size={16} />
+                    </button>
+                  </Link>
+                  <button
                             className="bg-black/95 backdrop-blur-md text-white p-3 rounded-xl hover:bg-gray-900 hover:scale-105 transition-all duration-300 shadow-xl"
-                            onClick={() => handleDeleteCar(car)}
-                          >
-                            <FiTrash2 size={16} />
-                          </button>
-                        </div>
+                    onClick={() => handleDeleteCar(car)}
+                  >
+                    <FiTrash2 size={16} />
+                  </button>
+                </div>
               </div>
 
               {/* Content */}
                       <div className="md:w-1/2 p-6 flex flex-col">
                         <div className="flex-1">
-                          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-black transition-colors duration-300 mb-6 leading-tight">
+                          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-black transition-colors duration-300 mb-6 leading-tight break-words">
                             {car.name || 'Unnamed Vehicle'}
                           </h3>
 
@@ -428,7 +428,7 @@ export function Dashboard() {
                       </div>
                       <div className="w-2/3 p-4 flex flex-col justify-between">
                         <div>
-                          <h3 className="font-bold text-gray-900 group-hover:text-black transition-colors duration-300 line-clamp-1">{car.name}</h3>
+                          <h3 className="font-bold text-gray-900 group-hover:text-black transition-colors duration-300 break-words">{car.name}</h3>
                           <div className="text-sm text-gray-600 mt-1">{car.year} • {car.km.toLocaleString()} km</div>
                           <div className="text-xs text-gray-500 mt-1">{car.city}</div>
                         </div>
@@ -497,7 +497,7 @@ export function Dashboard() {
 
                     <div className="p-4">
                       <div className="flex items-start justify-between mb-3">
-                        <h3 className="font-bold text-gray-900 group-hover:text-black transition-colors duration-300 line-clamp-1">{car.name}</h3>
+                        <h3 className="font-bold text-gray-900 group-hover:text-black transition-colors duration-300 break-words flex-1 mr-2">{car.name}</h3>
                         <div className="flex items-center gap-1 text-yellow-500">
                           <FaStar size={12} />
                           <span className="text-xs text-gray-500">4.8</span>

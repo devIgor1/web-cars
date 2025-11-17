@@ -129,7 +129,7 @@ export function CarDetail() {
               {/* Header */}
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
                 <div>
-                  <h1 className="text-4xl font-bold text-white mb-2">{car?.name}</h1>
+                  <h1 className="text-4xl font-bold text-white mb-2 break-words">{car?.name}</h1>
                   <p className="text-xl text-white/70">{car.model}</p>
                 </div>
                 <div className="mt-4 lg:mt-0">

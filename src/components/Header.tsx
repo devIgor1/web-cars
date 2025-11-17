@@ -116,7 +116,7 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex items-center gap-8">
@@ -196,7 +196,7 @@ export function Header() {
                                 )}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <h4 className="font-medium text-foreground truncate">{car.name}</h4>
+                                <h4 className="font-medium text-foreground break-words">{car.name}</h4>
                                 <p className="text-sm text-muted-foreground">
                                   {car.year} • {car.city} • ${car.price.toLocaleString()}
                                 </p>

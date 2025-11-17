@@ -22,8 +22,9 @@ export function CarContactCard({ price, carName, carYear, stockNumber, whatsappN
   return (
     <Card className="p-6 sticky top-24">
       <div className="mb-6">
-        <p className="text-sm text-muted-foreground mb-2">Price</p>
-        <p className="font-serif text-4xl font-bold">{price}</p>
+        <h2 className="text-2xl font-bold mb-2 break-words">{carName}</h2>
+        <p className="font-serif text-4xl font-bold mb-1">{price}</p>
+        <p className="text-sm text-muted-foreground">{carYear}</p>
       </div>
 
       <Separator className="my-6" />
