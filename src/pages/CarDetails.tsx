@@ -316,9 +316,7 @@ export function CarDetails() {
                   // Handle price formatting - convert to number and format with commas
                   let priceValue: number
                   if (typeof car.price === 'string') {
-                    // Remove all formatting (periods, commas, spaces) and convert to number
-                    const cleanedPrice = car.price.replace(/[.,\s]/g, '')
-                    priceValue = parseFloat(cleanedPrice) || 0
+                    priceValue = parseFloat(car.price) || 0
                   } else {
                     priceValue = Number(car.price) || 0
                   }
