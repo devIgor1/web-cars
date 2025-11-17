@@ -3,10 +3,19 @@ import { Card } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Heart } from "lucide-react"
 import { Link } from "react-router-dom"
-import { useFeaturedCars } from "../hooks/useCars"
+import { useCars } from "../hooks/useCars"
+import { useState } from "react"
 
 export function FeaturedCars() {
-  const { cars, loading, error } = useFeaturedCars(4)
+  const { cars, loading, error } = useCars()
+  const [displayCount, setDisplayCount] = useState(3)
+  
+  const displayedCars = cars.slice(0, displayCount)
+  const hasMore = displayCount < cars.length
+  
+  const handleLoadMore = () => {
+    setDisplayCount(prev => prev + 3)
+  }
 
   if (loading) {
     return (
@@ -45,8 +54,14 @@ export function FeaturedCars() {
           <h3 className="text-4xl lg:text-5xl font-bold tracking-tight text-balance mb-4">Featured Vehicles</h3>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {cars.map((car) => (
+        {displayedCars.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-lg text-gray-500">No featured vehicles available at the moment.</p>
+          </div>
+        ) : (
+          <>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayedCars.map((car) => (
             <Card
               key={car.id}
               className="group overflow-hidden bg-white border border-gray-200 hover:shadow-lg transition-all duration-300 rounded-lg"
@@ -96,8 +111,22 @@ export function FeaturedCars() {
                 </Link>
               </div>
             </Card>
-          ))}
-        </div>
+              ))}
+            </div>
+            
+            {/* Load More Button */}
+            {hasMore && (
+              <div className="text-center mt-12">
+                <Button
+                  onClick={handleLoadMore}
+                  className="px-8 py-3 bg-black text-white hover:bg-gray-800 rounded-lg transition-all duration-300 font-semibold"
+                >
+                  Load More
+                </Button>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   )
